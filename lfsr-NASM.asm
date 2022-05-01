@@ -14,9 +14,6 @@
 %define NN 4096 ; numero de intervalos
 
 SECTION .data
-	output1 db "intervalo ", 0
-	output2 db " tem ", 0
-	output3 db " elementos", 0
 	seed	dd 8388609	; seed inicial
 
 SECTION .bss
@@ -50,40 +47,12 @@ _main:
 		mov ebx, eax ; salva o estado em ebx
         call print_int
         call print_nl
-		and eax, 0x00FFFFFF
-
-		; Calculando a intervalo em que o numero pertence
-		and eax, 0x0FFF
-
-		; incrementa um nesse intervalo no vetor de frequencias
-		add dword [class + eax*4], 1
 
 		inc edx
-		cmp edx, 16777215
+		cmp edx, 10
 	jne do
 
-	; imprime as frequencias
-	; mov ecx, 0
-	; results:
-	; 	mov eax, output1
-	; 	call print_string
 
-	; 	mov eax, ecx
-	; 	call print_int
-
-	; 	mov eax, output2
-	; 	call print_string
-
-	; 	mov eax, [class + ecx*4]
-	; 	call print_int
-
-	; 	mov eax, output3
-	; 	call print_string
-
-	; 	call print_nl
-	; 	inc ecx
-	; 	cmp ecx, NN
-	; jne results
 
 
 	; fim do programa
