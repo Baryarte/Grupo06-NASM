@@ -22,7 +22,8 @@ int main(){
 
     while(1){
 
-        int novo_bit = ((estado >> 0) ^ (estado >> 17) ^ (estado >> 22) ^ (estado >> 23) ^ (estado >> 24)) & 1;
+        int novo_bit = ((estado >> 0) ^ (estado >> 1) ^ (estado >> 2) ^ (estado >> 7)
+        ) & 1;
         estado = (estado >> 1) | (novo_bit << 23);
 
 
