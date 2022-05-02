@@ -75,7 +75,7 @@ segment .text
 	global	read_int, print_int, print_string, read_char
 	global  print_char, print_nl, sub_dump_regs, sub_dump_mem
         global  sub_dump_math, sub_dump_stack
-        extern  scanf, printf, getchar, putchar, fputs
+        extern  _scanf, _printf, _getchar, _putchar, _fputs
 
 read_int:
 	enter	4,0
@@ -85,7 +85,7 @@ read_int:
 	lea	eax, [ebp-4]
 	push	eax
 	push	dword int_format
-	call	scanf
+	call	_scanf
 	pop	ecx
 	pop	ecx
 	
@@ -102,7 +102,7 @@ print_int:
 
 	push	eax
 	push	dword int_format
-	call	printf
+	call	_printf
 	pop	ecx
 	pop	ecx
 
@@ -118,7 +118,7 @@ print_string:
 
 	push	eax
 	push    dword string_format
-	call	printf
+	call	_printf
 	pop	ecx
 	pop	ecx
 
@@ -132,7 +132,7 @@ read_char:
 	pusha
 	pushf
 
-	call	getchar
+	call	_getchar
 	mov	[ebp-4], eax
 
 	popf
@@ -147,7 +147,7 @@ print_char:
 	pushf
 
 	push	eax
-	call	putchar
+	call	_putchar
 	pop	ecx
 
 	popf
@@ -162,7 +162,7 @@ print_nl:
 	pushf
 
 	push	dword 10	; 10 == ASCII code for \n
-	call	putchar
+	call	_putchar
 	pop	ecx
 
 	popf
@@ -259,7 +259,7 @@ push_of:
 	push	dword [ebp-8]   ; original EAX
 	push	dword [ebp+8]   ; # of dump
 	push	dword reg_format
-	call	printf
+	call	_printf
 	add	esp, 76
 	popf
 	popa
@@ -276,7 +276,7 @@ sub_dump_stack:
 	push    dword [ebp]     ; original EBP
 	push	dword [ebp+8]   ; # of dump
 	push	dword stack_format
-	call	printf
+	call	_printf
 	add	esp, 16
 
 	mov	ebx, [ebp]	; ebx = original ebp
@@ -298,7 +298,7 @@ stack_line_loop:
 	sal	eax, 2		; eax = 4*edx
 	push	eax		; offset from ebp
 	push	dword stack_line_format
-	call	printf
+	call	_printf
 	add	esp, 16
 
 	pop	ecx
@@ -322,7 +322,7 @@ sub_dump_mem:
 	push	dword [ebp+12]
 	push	dword [ebp+16]
 	push	dword mem_format1
-	call	printf
+	call	_printf
 	add	esp, 12		
 	mov	esi, [ebp+12]      ; address
 	and	esi, 0FFFFFFF0h    ; move to start of paragraph
@@ -332,7 +332,7 @@ mem_outer_loop:
 	push	ecx
 	push	esi
 	push	dword mem_format2
-	call	printf
+	call	_printf
 	add	esp, 8
 
 	xor	ebx, ebx
@@ -341,7 +341,7 @@ mem_hex_loop:
 	mov	al, [esi + ebx]
 	push	eax
 	push	dword mem_format3
-	call	printf
+	call	_printf
 	add	esp, 8
 	inc	ebx
 	cmp	ebx, 16
@@ -412,7 +412,7 @@ sub_dump_math:
 	push	eax
 	push	dword [ebp+8]
 	push	dword math_format1
-	call	printf
+	call	_printf
 	add	esp, 16
 ;
 ; rotate tag word so that tags in same order as numbers are
@@ -440,7 +440,7 @@ tag_loop:
 	je	invalid_st
 	push	edi		; 11 -> empty
 	push	dword empty_st_format
-	call	printf
+	call	_printf
 	add	esp, 8
 	jmp	short cont_tag_loop
 zero_st:
@@ -454,13 +454,13 @@ print_real:
 	push	dword [ebp-116]
 	push	edi
 	push	dword valid_st_format
-	call	printf
+	call	_printf
 	add	esp, 16
 	jmp	short cont_tag_loop
 invalid_st:
 	push	edi
 	push	dword invalid_st_format
-	call	printf
+	call	_printf
 	add	esp, 8
 cont_tag_loop:
 	ror	bx, 2		; mov next tag into lowest bits
@@ -474,5 +474,3 @@ cont_tag_loop:
 	popa
 	leave
 	ret	4
-
-
