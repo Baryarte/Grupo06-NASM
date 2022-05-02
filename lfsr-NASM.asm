@@ -25,8 +25,8 @@ global _lfsr
 _lfsr:
 	mov ebx, [seed]   ; inicializa ebx com a semente 
     mov eax, ebx
-    call print_int
-    call print_nl
+    ;call print_int
+    ;call print_nl
     push eax
     call _save
     pop eax
@@ -49,8 +49,8 @@ _lfsr:
 		shr ebx, 1  ; (estado >> 1)
 		or eax, ebx ; (estado >> 1) | (novo_bit << 23);
 		mov ebx, eax ; salva o estado em ebx
-		call print_int
-        call print_nl
+		;call print_int
+        ;call print_nl
         push ebx
         call _save
         pop ebx
