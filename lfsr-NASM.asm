@@ -56,7 +56,7 @@ _lfsr:
         pop ebx
         
 		inc edx
-		cmp edx, 10
+		cmp edx, 16777215
 	jne do
 
 
