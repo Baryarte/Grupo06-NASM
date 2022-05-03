@@ -13,7 +13,7 @@
 %include "asm_io.inc"
 
 SECTION .data
-	seed	dd 8388609	; seed inicial
+	seed	dd 123	; seed inicial
 
 SECTION .bss
 
