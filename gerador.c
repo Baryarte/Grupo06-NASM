@@ -13,7 +13,6 @@
 
 
 int estado_inicial = 1 << 23 | 1;
-
 int contador = 0;
 
 int main(){
@@ -36,7 +35,5 @@ int main(){
     }
 
     printf("%d\n", contador);
-
     return 0;
 }
--+
