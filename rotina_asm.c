@@ -34,6 +34,11 @@ void _Chi_Square() {
     power = (classes[i] - Fe) * (classes[i] - Fe);
     Chi += power/Fe;
     }
+
+    for (int i = 0; i < Fe; i++) {
+        printf("Intervalo %d - Frequencia observada %d / Frequencia Esperada %d\n", i, classes[i], Fe);
+    }
+
     printf("Chi Quadrado:  %lf\n", Chi);
     
 }
